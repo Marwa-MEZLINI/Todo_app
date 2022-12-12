@@ -1,18 +1,21 @@
-import { Route, Switch } from 'react';
+import Home from './pages/Home.js';
+import About from './pages/About.js';
+import Layout from './layout/Layout.js';
 
-import Home from './pages/Home';
-import About from './pages/About';
+import { Route, Switch } from 'react-router-dom'
 
 function App() {
   return (
-    <Switch>
-      <Route path='/' exact >
-        <Home />
-      </Route>
-      <Route path='/about' >
-        <About />
-      </Route>
-    </Switch>
+    <Layout>
+      <Switch>
+        <Route path='/' exact >
+          <Home />
+        </Route>
+        <Route path='/about' >
+          <About />
+        </Route>
+      </Switch>
+    </Layout>
   );
 }
 
