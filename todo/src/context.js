@@ -1,37 +1,40 @@
 import { createContext, useState } from "react";
 
-const AddItemContext = createContext({
+const TodoContext = createContext({
     todos: [],
     addTodo: (todoList) => { },
-    removeTodo: (todoItem) => { }
+    removeTodo: (todoItem) => { },
+    isCheked: () => {},
+    
 });
 
-export function AddItemContextProvider(props) {
-    const [todoItem, setTodoItem] = useState([]);
+export function TodoContextProvider(props) {
+    const [todos, setTodos] = useState([]);
 
-    function addItemHandler() {
-        setTodoItem((prevTodoList) => {
-            return prevTodoList.concat(todoList)
-        });
+    function addItemHandler(todoItem) {
+        setTodos(todos.concat(todoItem));
     }
 
-    function removeItemHandler(todoItem) {
-        setTodoItem((prevTodoList) => {
-            return prevTodoList.filter(todo => todo.text !== todoItem)
-        });
+    function removeItemHandler(id) {
+        setTodos(todos.map(todo => todo.id === id ? {...todo, deleted: !todo.deleted} :todo));
     }
 
+    function changeHandler(id) {
+        setTodos(todos.map(todo => todo.id === id ? {...todo, checked: !todo.checked} : todo));
+       }
+    
     const context = {
-        todos: todoItem,
+        todos: todos,
         addTodo: addItemHandler,
-        removeTodo: removeItemHandler
+        removeTodo: removeItemHandler,
+        isCheked: changeHandler
     }
 
     return (
-        <AddItemContext.Provider value={context}>
+        <TodoContext.Provider value={context}>
             {props.children}
-        </AddItemContext.Provider>
+        </TodoContext.Provider>
     )
 }
 
-export default AddItemContext;
+export default TodoContext;

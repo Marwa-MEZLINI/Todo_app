@@ -7,14 +7,14 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
-import { AddItemContextProvider } from './context';
+import { TodoContextProvider } from './context';
 
 const rootElement = document.getElementById('root')
 
 ReactDOM.createRoot(rootElement).render(
-  <AddItemContextProvider>
+  <TodoContextProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </AddItemContextProvider>
+  </TodoContextProvider>
 );
