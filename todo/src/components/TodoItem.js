@@ -8,12 +8,12 @@ function TodoItem(props) {
 
     return (
         <React.Fragment>
-            <div className="form-check"  >
-                <input className="checkbox" type="checkbox" onChange={() => { isCheked(todo.id) }} ></input>
-                <label className={`form-check-label ${todo.checked ? "text-decoration-line-through" : ""}`}>
+            <div className="form-check d-flex justify-self-end p-0"  >
+                <input className="checkbox me-1" type="checkbox" onChange={() => { isCheked(todo.id) }} ></input>
+                <label className={`form-check-label mx-1 ${todo.checked ? "text-decoration-line-through" : ""}`}>
                     {todo.text}
                 </label>
-                <button type="button" className="btn-close" aria-label="Close" onClick={() => removeTodo(todo.id)}></button>
+                <button type="button" className="btn-close ms-auto" aria-label="Close" onClick={() => removeTodo(todo.id)}></button>
             </div>
 
         </React.Fragment>

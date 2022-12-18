@@ -17,14 +17,15 @@ export function TodoContextProvider(props) {
     }
 
     function removeItemHandler(id) {
-        setTodos(todos.map(todo => todo.id === id ? { ...todo, deleted: !todo.deleted } : todo));
-        console.log(todos);
-        notificationModal(todos.find(todo => todo.id === id))
+        let newTodos = todos.map(todo => todo.id === id ? { ...todo, deleted: !todo.deleted } : todo)
+        notificationModal(newTodos.find(todo => todo.id === id))
+        setTodos(newTodos);
     }
 
     function changeHandler(id) {
-        setTodos(todos.map(todo => todo.id === id ? { ...todo, checked: !todo.checked } : todo));
-        notificationModal(todos.find(todo => todo.id === id))
+        let newTodos = todos.map(todo => todo.id === id ? { ...todo, checked: !todo.checked } : todo)
+        notificationModal(newTodos.find(todo => todo.id === id))
+        setTodos(newTodos);
 
     }
 
