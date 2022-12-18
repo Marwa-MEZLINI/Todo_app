@@ -10,10 +10,10 @@ function notificationModal(todo) {
             {
                 ReactDOM.createPortal(
 
-                    <div className="alert alert-dark">
+                    <div className="row d-flex flex-row justify-content-center w-25 border position-absolute bottom-10 start-10">
 
-                        {todo.checked && <p>You completed a new task</p>}
-                        {todo.deleted && <p>You deleted an incomplete task</p>}
+                        {todo.checked && <p className="bg-dark text-white w-100 m-0 p-3">You completed a new task</p>}
+                        {todo.deleted && <p className="bg-dark text-white w-100 m-0 p-3">You deleted an incomplete task</p>}
 
                     </div>, notificationElement
                 )

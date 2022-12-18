@@ -2,7 +2,7 @@ import SideNavigation from "./SideNavigation";
 
 function Layout(props) {
     return (
-        <div className="container-fluid">
+        <div className="container-fluid vh-100">
             <div className="row">
                 <SideNavigation />
                 <div className="col-1"></div>

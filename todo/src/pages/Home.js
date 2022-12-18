@@ -16,10 +16,11 @@ function Home() {
         addTodo(newTodo)
     }
 
-
+    const totalTodos = todos.filter(todo => todo.deleted === false && todo.checked === false)
+    console.log(totalTodos);
 
     return (
-        <div className="page-container border m-5 p-3" >
+        <div className="page-container border m-5 p-3  vh-90" >
             <div className="row container d-flex justify-conent-center m-0">
                 <div className="col-md-12 ">
                     <h4 className="title ms-2">Awesome Todo list</h4>
@@ -34,7 +35,7 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <p>total todos : {todos.length}</p>
+            <p className="ps-3 ms-3 mt-3">Total to-do tasks : {totalTodos.length}</p>
 
 
         </div>
