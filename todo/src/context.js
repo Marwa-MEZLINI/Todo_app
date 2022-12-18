@@ -1,11 +1,12 @@
 import { createContext, useState } from "react";
+import notificationModal from "./NotificationModal";
 
 const TodoContext = createContext({
     todos: [],
     addTodo: (todoList) => { },
     removeTodo: (todoItem) => { },
-    isCheked: () => {},
-    
+    isCheked: () => { },
+
 });
 
 export function TodoContextProvider(props) {
@@ -16,13 +17,17 @@ export function TodoContextProvider(props) {
     }
 
     function removeItemHandler(id) {
-        setTodos(todos.map(todo => todo.id === id ? {...todo, deleted: !todo.deleted} :todo));
+        setTodos(todos.map(todo => todo.id === id ? { ...todo, deleted: !todo.deleted } : todo));
+        console.log(todos);
+        notificationModal(todos.find(todo => todo.id === id))
     }
 
     function changeHandler(id) {
-        setTodos(todos.map(todo => todo.id === id ? {...todo, checked: !todo.checked} : todo));
-       }
-    
+        setTodos(todos.map(todo => todo.id === id ? { ...todo, checked: !todo.checked } : todo));
+        notificationModal(todos.find(todo => todo.id === id))
+
+    }
+
     const context = {
         todos: todos,
         addTodo: addItemHandler,
