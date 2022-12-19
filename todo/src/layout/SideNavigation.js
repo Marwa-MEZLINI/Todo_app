@@ -9,6 +9,12 @@ function SideNavigation() {
                     <Link to='/' className='text-decoration-none h4 link-dark ' >Home</Link>
                 </li>
                 <li className="nav-link border-bottom p-3">
+                    <Link to='/add-new-ticket' className='text-decoration-none h4 link-dark ' >Add new ticket</Link>
+                </li>
+                <li className="nav-link border-bottom p-3">
+                    <Link to='/to-do-list' className='text-decoration-none h4 link-dark ' >To-do</Link>
+                </li>
+                <li className="nav-link border-bottom p-3">
                     <Link to='/completed' className='text-decoration-none h4 link-dark' >Completed</Link>
                 </li>
                 <li className="nav-link border-bottom p-3">

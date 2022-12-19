@@ -5,8 +5,7 @@ function Layout(props) {
         <div className="container-fluid vh-100">
             <div className="row">
                 <SideNavigation />
-                <div className="col-1"></div>
-                <main className="col-8" >
+                <main className="col-9" >
                     {props.children}
                 </main>
             </div>

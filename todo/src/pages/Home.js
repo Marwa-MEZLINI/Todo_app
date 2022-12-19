@@ -1,44 +1,50 @@
-import { useContext, useRef } from "react";
-import TodoItem from "../components/TodoItem";
-import TodoContext from "../context";
+import React from "react";
+
+import { ReactComponent as ReactAddIcon } from '../assets/addIcon.svg';
+import { ReactComponent as ReactTodoIcon } from '../assets/todosIcon.svg';
+import { ReactComponent as ReactDoneIcon } from '../assets/doneIcon.svg';
+import { ReactComponent as ReactRemoveIcon } from '../assets/removeIcon.svg';
+import { Link } from "react-router-dom";
+
 
 function Home() {
-    const { addTodo, todos } = useContext(TodoContext);
-
-    const inputRef = useRef('');
-    function addNewTodo() {
-        const newTodo = {
-            text: inputRef.current.value,
-            checked: false,
-            deleted: false,
-            id: Date.now()
-        };
-        addTodo(newTodo)
-    }
-
-    const totalTodos = todos.filter(todo => todo.deleted === false && todo.checked === false)
-    console.log(totalTodos);
-
     return (
         <div className="page-container border m-5 p-3  vh-90" >
             <div className="row container d-flex justify-conent-center m-0">
-                <div className="col-md-12 ">
-                    <h4 className="title ms-2">Awesome Todo list</h4>
-                    <div className="add-items d-flex">
-                        <input type="text" className='form-control todo-list-input m-2' placeholder="What do you need to do today?" ref={inputRef} />
-                        <button className="add btn btn-primary font-weight-bold todo-list-add-btn m-2" onClick={addNewTodo} >Add</button>
+                <div className="row d-flex-row-wrap justify-content-evenly h-100">
+
+                    <div className="col-2 border p-3 m-5 w-25 h-50 d-flex align-items-center justify-content-center">
+                        <Link to='/add-new-ticket' className="text-decoration-none">
+                            <ReactAddIcon className="text-secondary" />
+                        </Link>
                     </div>
-                    <div className="list-wrapper">
-                        <ul className="d-flex flex-column todo-list list-unstyled gap-3 m-3">
-                            {todos.length > 0 && todos.map((todo) => (todo.deleted || todo.checked) ? '' : <li className="border-bottom pb-2" key={todo.id} id={todo.id} ><TodoItem todo={todo} /></li>)}
-                        </ul>
+
+
+                    <div className="col-2 border m-5 p-3 w-25 h-50 d-flex align-items-center justify-content-center">
+                        <Link to='/to-do-list' className='text-decoration-none p-4'>
+                            <ReactTodoIcon className="text-secondary" />
+                        </Link>
                     </div>
+
+
+                    <div className="col-2 border m-5 p-3 w-25 h-50 d-flex align-items-center justify-content-center">
+                        <Link to='/completed' className='text-decoration-none p-4'>
+                            <ReactDoneIcon className="text-success" />
+                        </Link>
+                    </div>
+
+                    <div className="col-2 border m-5 p-3 w-25 h-50 d-flex align-items-center justify-content-center">
+                        <Link to='/deleted' className='text-decoration-none p-4'>
+                            <ReactRemoveIcon className="text-danger" />
+                        </Link>
+                    </div>
+
                 </div>
             </div>
-            <p className="ps-3 ms-3 mt-3">Total to-do tasks : {totalTodos.length}</p>
-
-
         </div>
+
+
+
     )
 }
 
