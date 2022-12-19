@@ -1,14 +1,33 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import TodoContext from "../context";
 import { Tooltip } from "bootstrap";
+import { Link } from "react-router-dom";
 
 function AddTicket() {
-    const { addNewTodo } = useContext(TodoContext);
-
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new Tooltip(tooltipTriggerEl)
     })
+
+    const { addTodo } = useContext(TodoContext);
+
+    const titleRef = useRef('');
+    const textRef = useRef('');
+    const categoryRef = useRef('');
+    const priorityRef = useRef('');
+
+    function addNewTodo() {
+        const newTodo = {
+            title: titleRef.current.value,
+            text: textRef.current.value,
+            category: categoryRef.current.value,
+            priority: priorityRef.current.value,
+            checked: false,
+            deleted: false,
+            id: Date.now()
+        };
+        addTodo(newTodo)
+    }
 
     return (
         <div className="page-container border m-5 p-3  vh-90" >
@@ -17,15 +36,15 @@ function AddTicket() {
                 <form>
                     <label className="h6">
                         Title:
-                        <input type="text" class="form-control" placeholder="Name a task" />
+                        <input type="text" className="form-control" placeholder="Name a task" ref={titleRef} />
                     </label>
                     <label className="h6">
                         Description:
-                        <textarea placeholder="Describe your task..." />
+                        <textarea placeholder="Describe your task..." ref={textRef} />
                     </label>
                     <label className="h6">
                         Category:
-                        <select className="form-select" aria-label="Default select example">
+                        <select className="form-select" aria-label="Default select example" ref={categoryRef}>
                             <option value='choose'>Choose a category</option>
                             <option value='family'>Family</option>
                             <option value='social'>Social</option>
@@ -36,10 +55,12 @@ function AddTicket() {
                     </label>
                     <label className="h6">
                         Priority:
-                        <input type='text' aria-label="number" data-bs-toggle="tooltip" data-bs-placement="top" title="Rate the importance of the task from 1 to 10" />
+                        <input type='text' aria-label="number" data-bs-toggle="tooltip" data-bs-placement="top" title="Rate the importance of the task from 1 to 10" ref={priorityRef} />
                     </label>
                 </form>
-                <button className="add btn btn-primary font-weight-bold todo-list-add-btn m-2" onClick={addNewTodo} >Add</button>
+                <button className="add btn btn-primary font-weight-bold todo-list-add-btn m-2" onClick={addNewTodo} >
+                    <Link to='/todo' className="text-decoration-none text-white">Add</Link>
+                </button>
 
             </div>
         </div>
