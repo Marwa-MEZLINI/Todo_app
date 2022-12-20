@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import TodoContext from "../context";
 import { Tooltip } from "bootstrap";
 import { Link } from "react-router-dom";
@@ -29,6 +29,20 @@ function AddTicket() {
         addTodo(newTodo)
     }
 
+    const [value, setValue] = useState('');
+
+    const handleChange = event => {
+        const result = event.target.value.replace(/\D/g, '');
+
+        setValue(result);
+    };
+
+    if (value !== '') {
+        const num = Number(value);
+    }
+
+
+
     return (
         <div className="page-container border m-5 p-3  vh-90" >
             <div className="row container d-flex justify-conent-center m-0">
@@ -55,7 +69,7 @@ function AddTicket() {
                     </label>
                     <label className="h6">
                         Priority:
-                        <input type='text' aria-label="number" data-bs-toggle="tooltip" data-bs-placement="top" title="Rate the importance of the task from 1 to 10" ref={priorityRef} />
+                        <input type='text' aria-label="number" data-bs-toggle="tooltip" data-bs-placement="top" title="Rate the importance of the task from 0 to 10" ref={priorityRef} value={value} onChange={handleChange} />
                     </label>
                 </form>
                 <button className="add btn btn-primary font-weight-bold todo-list-add-btn m-2" onClick={addNewTodo} >
