@@ -21,7 +21,7 @@ function Home() {
 
 
                     <div className="col-2 border m-5 p-3 w-25 h-50 d-flex align-items-center justify-content-center">
-                        <Link to='/to-do-list' className='text-decoration-none p-4'>
+                        <Link to='/todo' className='text-decoration-none p-4'>
                             <ReactTodoIcon className="text-secondary" />
                         </Link>
                     </div>
