@@ -9,24 +9,51 @@ function AddTicket() {
         return new Tooltip(tooltipTriggerEl)
     })
 
-    const { addTodo } = useContext(TodoContext);
-
+    const { addTodo, todos } = useContext(TodoContext);
+    const [formErrors, setFormErrors] = useState({
+        title: "",
+        category: "",
+        priority: ''
+    })
     const titleRef = useRef('');
     const textRef = useRef('');
     const categoryRef = useRef('');
     const priorityRef = useRef('');
 
-    function addNewTodo() {
-        const newTodo = {
-            title: titleRef.current.value,
-            text: textRef.current.value,
-            category: categoryRef.current.value,
-            priority: priorityRef.current.value,
-            checked: false,
-            deleted: false,
-            id: Date.now()
+    function addNewTodo(e) {
+        e.preventDefault()
+        formValidation()
+        console.log(formErrors)
+        if (Object.values(formErrors).every(value => !value)) {
+            console.log(formErrors)
+            const newTodo = {
+                title: titleRef.current.value,
+                text: textRef.current.value,
+                category: categoryRef.current.value,
+                priority: priorityRef.current.value,
+                checked: false,
+                deleted: false,
+                id: Date.now()
+            };
+            addTodo(newTodo)
         };
-        addTodo(newTodo)
+    }
+
+    function formValidation() {
+        let errors = formErrors
+
+        errors.category = (categoryRef.current.value === 'choose') ? 'You have to select a category!!!!' : ''
+
+        errors.priority = (!priorityRef.current.value || priorityRef.current.value > 11) ? 'Priority is requierd!' : ''
+
+        errors.title = (!titleRef.current.value) ? 'What do you need to do?' : ''
+
+        if (todos.length > 0) {
+            for (var i = 0; i < todos.length; i++) {
+                errors.title = (todos[i].title === titleRef.current.value) ? ' Title already exists, Try again!' : ''
+            }
+        }
+        setFormErrors(errors)
     }
 
     const [value, setValue] = useState('');
@@ -37,43 +64,41 @@ function AddTicket() {
         setValue(result);
     };
 
-    if (value !== '') {
-        const num = Number(value);
-    }
-
-
-
     return (
         <div className="page-container border m-5 p-3  vh-90" >
-            <div className="row container d-flex justify-conent-center m-0">
-                <h4 className="title ms-2">What do you need to do today?</h4>
-                <form>
-                    <label className="h6">
-                        Title:
-                        <input type="text" className="form-control" placeholder="Name a task" ref={titleRef} />
-                    </label>
-                    <label className="h6">
+            <div className="row container d-flex-column justify-content-center m-0">
+                <h4 className="title ms-2 w-50 text-center">What do you need to do today?</h4>
+                <form className="d-flex-column w-50 py-3 px-0">
+                    <label className="h6 form-label" htmlFor="validationCustomTitle" >Title:</label>
+                    <input type="text" id="validationCustomTitle" className="form-control w-100 me-0" placeholder="Name a task" ref={titleRef} required />
+
+                    {formErrors?.title && <span className="text-danger">{formErrors.title}</span>}
+                    <label className="h6 form-label w-100 m-0">
                         Description:
-                        <textarea placeholder="Describe your task..." ref={textRef} />
+                        <textarea className="w-100 m-0" placeholder="Describe your task..." ref={textRef} />
                     </label>
-                    <label className="h6">
-                        Category:
-                        <select className="form-select" aria-label="Default select example" ref={categoryRef}>
-                            <option value='choose'>Choose a category</option>
-                            <option value='family'>Family</option>
-                            <option value='social'>Social</option>
-                            <option value='Sports'>Sports</option>
-                            <option value='personal'>Personal</option>
-                            <option value='professional'>Professional</option>
-                        </select>
-                    </label>
-                    <label className="h6">
-                        Priority:
-                        <input type='text' aria-label="number" data-bs-toggle="tooltip" data-bs-placement="top" title="Rate the importance of the task from 0 to 10" ref={priorityRef} value={value} onChange={handleChange} />
-                    </label>
+                    <div className="d-flex w-100 m-0 justify-content-between">
+                        <label className="h6 form-label w-50 m-0">
+                            Category:
+                            <select className="form-select m-0 w-100 p-2" aria-label="Default select example" ref={categoryRef} required>
+                                <option value='choose'>Choose a category</option>
+                                <option value='family'>Family</option>
+                                <option value='social'>Social</option>
+                                <option value='Sports'>Sports</option>
+                                <option value='personal'>Personal</option>
+                                <option value='professional'>Professional</option>
+                            </select>
+                        </label>
+                        {formErrors?.category && <span>{formErrors.category}</span>}
+                        <label className="h6 w-25 m-0 ms-3 d-flex-column justify-content-end">
+                            Priority:
+                            <input type='text' className="w-100 m-0 p-2" aria-label="number" data-bs-toggle="tooltip" data-bs-placement="top" title="Rate the importance of the task from 0 to 10" ref={priorityRef} value={value} onChange={handleChange} required />
+                        </label>
+                        {formErrors?.priority && <span>{formErrors.priority}</span>}
+                    </div>
                 </form>
-                <button className="add btn btn-primary font-weight-bold todo-list-add-btn m-2" onClick={addNewTodo} >
-                    <Link to='/todo' className="text-decoration-none text-white">Add</Link>
+                <button className="add btn btn-primary font-weight-bold todo-list-add-btn my-2 w-25" onClick={addNewTodo} >
+                    Add
                 </button>
 
             </div>
