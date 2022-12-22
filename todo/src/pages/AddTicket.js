@@ -66,41 +66,42 @@ function AddTicket() {
 
     return (
         <div className="page-container border m-5 p-3  vh-90" >
-            <div className="row container d-flex-column justify-content-center m-0">
-                <h4 className="title ms-2 w-50 text-center">What do you need to do today?</h4>
-                <form className="d-flex-column w-50 py-3 px-0">
-                    <label className="h6 form-label" htmlFor="validationCustomTitle" >Title:</label>
-                    <input type="text" id="validationCustomTitle" className="form-control w-100 me-0" placeholder="Name a task" ref={titleRef} required />
+            <div className="row container d-flex flex-column align-items-center m-0">
+                <div className="col-5 d-flex flex-column align-items-center">
+                    <h4 className="title ms-2 w-100 text-center">What do you need to do today?</h4>
+                    <form className="d-flex-column w-100 py-3 px-0 mt-3">
+                        <label className="h6 form-label mt-3" htmlFor="validationCustomTitle" >Title:</label>
+                        <input type="text" id="validationCustomTitle" className="form-control w-100 me-0 mb-3" placeholder="Name a task" ref={titleRef} required />
 
-                    {formErrors?.title && <span className="text-danger">{formErrors.title}</span>}
-                    <label className="h6 form-label w-100 m-0">
-                        Description:
-                        <textarea className="w-100 m-0" placeholder="Describe your task..." ref={textRef} />
-                    </label>
-                    <div className="d-flex w-100 m-0 justify-content-between">
-                        <label className="h6 form-label w-50 m-0">
-                            Category:
-                            <select className="form-select m-0 w-100 p-2" aria-label="Default select example" ref={categoryRef} required>
-                                <option value='choose'>Choose a category</option>
-                                <option value='family'>Family</option>
-                                <option value='social'>Social</option>
-                                <option value='Sports'>Sports</option>
-                                <option value='personal'>Personal</option>
-                                <option value='professional'>Professional</option>
-                            </select>
+                        {formErrors?.title && <span className="text-danger">{formErrors.title}</span>}
+                        <label className="h6 form-label w-100 mt-3">
+                            Description:
+                            <textarea className="w-100 mt-2 mb-3" placeholder="Describe your task..." ref={textRef} />
                         </label>
-                        {formErrors?.category && <span>{formErrors.category}</span>}
-                        <label className="h6 w-25 m-0 ms-3 d-flex-column justify-content-end">
-                            Priority:
-                            <input type='text' className="w-100 m-0 p-2" aria-label="number" data-bs-toggle="tooltip" data-bs-placement="top" title="Rate the importance of the task from 0 to 10" ref={priorityRef} value={value} onChange={handleChange} required />
-                        </label>
-                        {formErrors?.priority && <span>{formErrors.priority}</span>}
-                    </div>
-                </form>
-                <button className="add btn btn-primary font-weight-bold todo-list-add-btn my-2 w-25" onClick={addNewTodo} >
-                    Add
-                </button>
-
+                        <div className="d-flex w-100 my-3 justify-content-between">
+                            <label className="h6 form-label w-50 m-0">
+                                Category:
+                                <select className="form-select mt-2 w-100 p-2" aria-label="Default select example" ref={categoryRef} required>
+                                    <option value='choose'>Choose a category</option>
+                                    <option value='family'>Family</option>
+                                    <option value='social'>Social</option>
+                                    <option value='Sports'>Sports</option>
+                                    <option value='personal'>Personal</option>
+                                    <option value='professional'>Professional</option>
+                                </select>
+                            </label>
+                            {formErrors?.category && <span>{formErrors.category}</span>}
+                            <label className="h6 w-25 m-0 ms-3 d-flex-column justify-content-end">
+                                Priority:
+                                <input type='text' className="w-100 mt-2 p-2" aria-label="number" data-bs-toggle="tooltip" data-bs-placement="top" title="Rate the importance of the task from 0 to 10" ref={priorityRef} value={value} onChange={handleChange} required />
+                            </label>
+                            {formErrors?.priority && <span>{formErrors.priority}</span>}
+                        </div>
+                    </form>
+                    <button className="add btn btn-primary font-weight-bold todo-list-add-btn my-3 w-50 p-2" onClick={addNewTodo} >
+                        Add
+                    </button>
+                </div>
             </div>
         </div>
     )
