@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import notificationModal from "./NotificationModal";
+import NotificationModal from "./NotificationModal";
 
 const TodoContext = createContext({
     todos: [],
@@ -11,20 +11,21 @@ const TodoContext = createContext({
 
 export function TodoContextProvider(props) {
     const [todos, setTodos] = useState([]);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     function addItemHandler(todoItem) {
         setTodos(todos.concat(todoItem));
     }
 
     function removeItemHandler(id) {
-        let newTodos = todos.map(todo => todo.id === id ? { ...todo, deleted: !todo.deleted } : todo)
-        notificationModal(newTodos.find(todo => todo.id === id))
+        let newTodos = todos.map(todo => todo.id === id ? { ...todo, deleted: !todo.deleted } : todo);
+        setIsModalVisible(true);
         setTodos(newTodos);
     }
 
     function changeHandler(id) {
-        let newTodos = todos.map(todo => todo.id === id ? { ...todo, checked: !todo.checked } : todo)
-        notificationModal(newTodos.find(todo => todo.id === id))
+        let newTodos = todos.map(todo => todo.id === id ? { ...todo, checked: !todo.checked } : todo);
+        setIsModalVisible(true);
         setTodos(newTodos);
 
     }
@@ -39,8 +40,9 @@ export function TodoContextProvider(props) {
     return (
         <TodoContext.Provider value={context}>
             {props.children}
+            <NotificationModal todo={todos.find((todo) => todo.deleted || todo.checked)} isVisible={isModalVisible} setIsVisible={setIsModalVisible} />
         </TodoContext.Provider>
-    )
+    );
 }
 
 export default TodoContext;
