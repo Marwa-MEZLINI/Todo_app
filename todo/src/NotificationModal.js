@@ -6,7 +6,7 @@ function NotificationModal({ todo, isVisible, setIsVisible }) {
         let timeoutId;
 
         if (isVisible) {
-            timeoutId = setTimeout(() => setIsVisible(false), 3000);
+            timeoutId = setTimeout(() => setIsVisible(false), 20000);
         }
 
         return () => clearTimeout(timeoutId);
@@ -17,10 +17,10 @@ function NotificationModal({ todo, isVisible, setIsVisible }) {
     }
 
     return ReactDOM.createPortal(
-        <div className="modal d-flex flex-row justify-content-center w-25 border position-relative bottom-15 start-15">
+        <div className={`d-flex flex-row justify-content-center w-25 position-absolute top-0 end-0 border rounded-2`}>
 
-            {todo.checked && <p className="bg-dark text-white w-100 m-0 p-3">You completed a new task</p>}
-            {todo.deleted && <p className="bg-dark text-white w-100 m-0 p-3">You deleted an incomplete task</p>}
+            {todo.checked && <p className="bg-dark text-white w-100 m-0 p-3 rounded-2">You completed a new task</p>}
+            {todo.deleted && <p className="bg-dark text-white w-100 m-0 p-3 rounded-2">You deleted an incomplete task</p>}
         </div>,
         document.getElementById('portal-root'),
     );
