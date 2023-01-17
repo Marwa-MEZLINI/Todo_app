@@ -3,7 +3,7 @@ import { ReactComponent as ReactIcon } from "../assets/deleteIcon.svg";
 
 
 function Deleted() {
-    const { todos } = useSelector(state => state.todos);
+    const todos = useSelector(state => state.todos);
 
     return (
         <div className="page-container border m-5 p-3  vh-90">

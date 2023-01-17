@@ -2,7 +2,7 @@ import { ReactComponent as ReactIcon } from "../assets/checkIcon.svg";
 import { useSelector } from "react-redux";
 
 function Completed() {
-    const { todos } = useSelector(state => state.todos);
+    const todos = useSelector(state => state.todos);
 
 
 
