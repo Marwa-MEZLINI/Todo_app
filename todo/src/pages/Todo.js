@@ -1,9 +1,12 @@
-import { useContext } from "react";
-import TodoContext from "../context";
-import TodoItem from '../components/TodoItem'
+
+import TodoItem from '../components/TodoItem';
+import { useSelector } from "react-redux";
+
 
 function Todo() {
-    const { todos } = useContext(TodoContext);
+    const todos = useSelector(state => state.todos);
+
+    
 
     return (
         <div className="page-container border m-5 p-3  vh-90" >

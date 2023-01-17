@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import TodoContext from "../context";
+import { useSelector } from "react-redux";
 import { ReactComponent as ReactIcon } from "../assets/deleteIcon.svg";
 
 
 function Deleted() {
-    const { todos } = useContext(TodoContext);
+    const { todos } = useSelector(state => state.todos);
 
     return (
         <div className="page-container border m-5 p-3  vh-90">

@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
-import TodoContext from "../context";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { removeTodo , isChecked } from "../redux/actions/todoActions"
+
 
 function TodoItem(props) {
-    const { removeTodo, isCheked } = useContext(TodoContext);
+    const dispatch = useDispatch();
     const { todo } = props;
 
 
@@ -11,7 +13,7 @@ function TodoItem(props) {
             <div className="card">
                 <p className="h4"> {todo.title} </p>
                 <div className="form-check d-flex justify-self-end p-0"  >
-                    <input className="checkbox me-1" type="checkbox" onChange={() => { isCheked(todo.id) }} ></input>
+                    <input className="checkbox me-1" type="checkbox" onChange={() => { dispatch(isChecked(todo.id)) }} ></input>
                     <label className={`form-check-label mx-1 ${todo.checked ? "text-decoration-line-through" : ""}`}>
                         {todo.text}
                     </label>
@@ -19,7 +21,7 @@ function TodoItem(props) {
                 <div>
                     <p> {todo.category} </p>
                     <p> {todo.priority} </p>
-                    <button type="button" className="btn-close ms-auto" aria-label="Close" onClick={() => removeTodo(todo.id)}></button>
+                    <button type="button" className="btn-close ms-auto" aria-label="Close" onClick={() => dispatch(removeTodo(todo.id))}></button>
                 </div>
             </div>
         </React.Fragment>

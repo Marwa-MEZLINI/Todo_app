@@ -1,9 +1,12 @@
-import { useContext } from "react";
-import TodoContext from "../context";
+// import { useContext } from "react";
+// import TodoContext from "../context";
 import { Tooltip } from "bootstrap";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/actions/todoActions";
+
 
 const schema = yup.object().shape({
     title: yup.string().required('What do you need to do?'),
@@ -16,7 +19,8 @@ function AddTicket() {
         return new Tooltip(tooltipTriggerEl)
     })
 
-    
+    const dispatch = useDispatch();
+
     const {register, handleSubmit, formState: {errors}, reset , getValues} = useForm({resolver: yupResolver(schema),  mode: "onSubmit",defaultValues: {
         title: '',
         text: '',
@@ -24,8 +28,6 @@ function AddTicket() {
         priority: '',
     }});
     
-    const { addTodo, todos } = useContext(TodoContext);   
-
     function addNewTodo(e) {
 
             const newTodo = {
@@ -38,7 +40,7 @@ function AddTicket() {
                 id: Date.now()
             };
 
-            addTodo(newTodo);
+            dispatch(addTodo(newTodo));
             reset();
         };
 

@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import TodoContext from "../context";
 import { ReactComponent as ReactIcon } from "../assets/checkIcon.svg";
+import { useSelector } from "react-redux";
 
 function Completed() {
-    const { todos } = useContext(TodoContext);
+    const { todos } = useSelector(state => state.todos);
 
 
 
